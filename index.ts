@@ -1,11 +1,11 @@
 import express from "express";
-
+import {AdminRoute, VendorRoute}  from "./routes"
 
 const app = express();
 
-app.use("/", (req, res)=> {
-    return res.json("Hello from backend")
-})
+app.use("/admin", AdminRoute)
+app.use("/vendor", VendorRoute)
+
 
 
 app.listen(5000, ()=>{
