@@ -1,7 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import {AdminRoute, VendorRoute}  from "./routes"
-
+import mongoose from "mongoose"
+import { MONGO_URI } from "./config";
 
 const app = express();
 
@@ -13,7 +14,11 @@ app.use("/vendor", VendorRoute)
 
 
 
+mongoose.connect(MONGO_URI).then(result => {
+ console.log("Connected to DB");
+}).catch(err => console.log(err))
+
 app.listen(5000, ()=>{
-    console.clear();
+   
     console.log('listening on port 5000'); 
 })
