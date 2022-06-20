@@ -1,1 +1,1 @@
-export const MONGO_URI = "mongodb+srv://Swift:pizza@cluster0.qty8p.mongodb.net/?retryWrites=true&w=majority"
+export const MONGO_URI = ""

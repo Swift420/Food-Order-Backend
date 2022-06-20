@@ -1,5 +1,6 @@
 import { Request, Response,NextFunction} from "express"
 import { CreateVendorInput } from "../dto";
+import bcrypt from "bcrypt";
 import { Vendor } from "../models";
 import { GeneratePassword, GenerateSalt } from "../utility";
 
@@ -9,15 +10,16 @@ export const CreateVendor = async (req: Request, res: Response, next: NextFuncti
 
     const exisitingVendor =  await Vendor.findOne({email: email})
 
+    
     if(exisitingVendor != null){
         return res.json({"message": "Vendor already exists"})
     }
-
     //generate a salt 
 
-        const salt = await GenerateSalt();
-        const userPassword = await GeneratePassword(password,salt);
-
+        const salt = await bcrypt.genSalt(10);
+        
+        const userPassword =  await bcrypt.hash(password, salt);
+        
     //encrypt the password
 
 
