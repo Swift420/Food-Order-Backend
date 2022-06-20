@@ -9,5 +9,6 @@ app.use("/vendor", VendorRoute)
 
 
 app.listen(5000, ()=>{
+    console.clear();
     console.log('listening on port 5000'); 
 })
