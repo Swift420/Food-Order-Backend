@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 import { VendorLoginInputs } from "../dto";
 import { Vendor } from "../models";
-import { validatePassword } from "../utility";
+import { GenerateSignature, validatePassword } from "../utility";
 
 
 export const findVendor = async(id: string | undefined, email?:string) => {
@@ -24,7 +24,16 @@ export const VendorLogin = async (req: Request, res: Response, next: NextFunctio
    
  
          if(validation){
-                 return res.json(existingVendor)
+
+                const signature = GenerateSignature({
+                    _id: existingVendor.id,
+                    email: existingVendor.email,
+                    foodTypes: existingVendor.foodType,
+                    name: existingVendor.name
+
+                })
+
+                 return res.json(signature)
                  
          }else {
             return res.json({"message": "Login credential are not valid"})

@@ -17,6 +17,6 @@ export interface VendorPayload {
     _id: string;
     email: string;
     name: string;
-    foodType: string;
+    foodTypes: [string];
     
 }
