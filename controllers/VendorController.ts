@@ -47,6 +47,16 @@ export const VendorLogin = async (req: Request, res: Response, next: NextFunctio
 
 export const GetVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
     
+    const user = req.user;
+
+    if(user) {
+        const existingVendor = await findVendor(user._id);
+
+        return res.json(existingVendor)
+    }
+    
+    return res.json({"message": "Login credential are not valid"})
+   
 }
 
 export const UpdateVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
