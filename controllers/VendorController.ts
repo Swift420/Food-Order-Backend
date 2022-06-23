@@ -19,18 +19,30 @@ export const VendorLogin = async (req: Request, res: Response, next: NextFunctio
    const existingVendor = await findVendor("", email);
 
    if(existingVendor !== null ){
-//         const validation = await validatePassword(password, existingVendor.password, existingVendor.salt)
 
-    const validation = true;
+        const validation = await validatePassword(password, existingVendor.password, existingVendor.salt)
+   
+ 
          if(validation){
-                 //   return res.json(existingVendor)
-                 return res.json({"message": "Login credential are not valid1"})
+                 return res.json(existingVendor)
+                 
          }else {
-            return res.json({"message": "Login credential are not valid2"})
+            return res.json({"message": "Login credential are not valid"})
    
          }
    }
 
-   return res.json({"message": "Login credential are not valid3"})
+   return res.json({"message": "Login credential are not valid"})
    
+}
+
+export const GetVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
+
+}
+
+export const UpdateVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
+    
+}
+export const UpdateVendorService = async (req: Request, res: Response, next: NextFunction) => {
+    
 }
