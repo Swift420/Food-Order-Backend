@@ -37,7 +37,7 @@ export const VendorLogin = async (req: Request, res: Response, next: NextFunctio
 }
 
 export const GetVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
-
+    
 }
 
 export const UpdateVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
