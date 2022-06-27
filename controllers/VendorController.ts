@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import { VendorLoginInputs } from "../dto";
+import { EditVendorInputs, VendorLoginInputs } from "../dto";
 import { Vendor } from "../models";
 import { GenerateSignature, validatePassword } from "../utility";
 
@@ -60,7 +60,30 @@ export const GetVendorProfile = async (req: Request, res: Response, next: NextFu
 }
 
 export const UpdateVendorProfile = async (req: Request, res: Response, next: NextFunction) => {
+
+       const {foodTypes, name,address,phone} = <EditVendorInputs> req.body 
+
+    const user = req.user;
+
+    if(user) {
+        const existingVendor = await findVendor(user._id);
+
+        if(existingVendor != null) {
+            existingVendor.name = name;
+            existingVendor.address = address;
+            existingVendor.phone = phone;
+            existingVendor.foodType = foodTypes;
+
+            const savedResult = await existingVendor.save();
+
+            return res.json(savedResult)
+        }
+
+        return res.json(existingVendor)
+    }
     
+    return res.json({"message": "Login credential are not valid"})
+   
 }
 export const UpdateVendorService = async (req: Request, res: Response, next: NextFunction) => {
     
